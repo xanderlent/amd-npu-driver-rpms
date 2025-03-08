@@ -22,6 +22,7 @@ ExclusiveArch:	x86_64 aarch64 ppc64le
 %bcond_with rocm
 %endif
 
+# TODO: move to packageconfig(lib) format?
 BuildRequires:	cmake
 BuildRequires:	g++
 BuildRequires:	libdrm-devel
@@ -43,6 +44,7 @@ BuildRequires:	rocm-hip-devel
 BuildRequires:	rocm-comgr-devel
 BuildRequires:	rocm-runtime-devel
 %endif
+Requires:	opencl-filesystem
 
 %description
 XRT supports both PCIe based accelerator cards and MPSoC based embedded
@@ -77,11 +79,20 @@ mv aie-rt-%{aiert_rev}/ src/runtime_src/core/common/aiebu/lib/aie-rt/
 %install
 %cmake_install
 
-#TODO: make ctest work/do check phase
+%check
+# TODO: get ctest working
 
 %files
 #TODO: figure out how to get files in reasonable locations
 #TODO: split package into subpackages like upstream does
+# OpenCL ICD file goes in the right place
+/etc/OpenCL/vendors/xilinx.icd
+# xaiengine.h seems to go to the right places
+%{_includedir}/xaiengine.h
+%{_includedir}/xaiengine
+# PackageConfig file goes in the right place
+%{_libdir}/pkgconfig/xrt.pc
+# TODO: and basically everything else is in the wrong place...
 
 %changelog
 %autochangelog
