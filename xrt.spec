@@ -71,19 +71,17 @@ mv aie-rt-%{aiert_rev}/ src/runtime_src/core/common/aiebu/lib/aie-rt/
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
 	-DXRT_ENABLE_HIP=%{enable_hip} \
 	-DXRT_ENABLE_WERROR=0 \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DXRT_INSTALL_PREFIX=%{_prefix} 
+	-DXRT_INSTALL_PREFIX=%{_prefix}
 %cmake_build
 
 %install
 %cmake_install
 
-%check
-#TODO: make ctest work
+#TODO: make ctest work/do check phase
 
 %files
 #TODO: figure out how to get files in reasonable locations
 #TODO: split package into subpackages like upstream does
 
 %changelog
-#TODO
+%autochangelog
