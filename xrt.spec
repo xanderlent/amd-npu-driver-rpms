@@ -88,14 +88,37 @@ mv aie-rt-%{aiert_rev}/ src/runtime_src/core/common/aiebu/lib/aie-rt/
 %files
 #TODO: figure out how to get files in reasonable locations
 #TODO: split package into subpackages like upstream does
+#### This will be the -aws subpackage ###
+%{_prefix}/xrt/lib/libaws_mpd_plugin.so
+#### This will be the -azure subpackage ###
+%{_prefix}/xrt/lib/libazure_mpd_plugin.so
+#### This will be the -contianer subpackage ###
+%{_prefix}/xrt/lib/libcontainer_mpd_plugin.so
+#### This will be the -runtime subpackage ####
+%{_prefix}/lib/cmake/xaiengine/
+#### This will be the -Runtime subpackage ####
+%{_prefix}/aiebu/bin
+%{_prefix}/aiebu/include
+%{_prefix}/aiebu/lib/aie2
+#### This will be the -xbflash subpackage ####
+%{_prefix}/local/bin/xbflash
+#### This will be the -xrt subpackage ####
 # OpenCL ICD file goes in the right place
 /etc/OpenCL/vendors/xilinx.icd
-# xaiengine.h seems to go to the right places
+# But the aiebu files do not
+%{_prefix}/aiebu/lib/libaiebu.so
+%{_prefix}/aiebu/lib/libaiebu_static.a
+# xaiengine includes go to the right places
 %{_includedir}/xaiengine.h
 %{_includedir}/xaiengine
+# but the actual library does not
+%{_prefix}/lib/libxaiengine.a
+# nor does the bulk of the library
+%{_prefix}/xrt/
 # PackageConfig file goes in the right place
 %{_libdir}/pkgconfig/xrt.pc
-# TODO: and basically everything else is in the wrong place...
+# but the version header does not
+%{_prefix}/src/xrt-2.18.0/driver/include/version.h
 
 %changelog
 %autochangelog
