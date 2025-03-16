@@ -45,6 +45,9 @@ BuildRequires:	rocm-comgr-devel
 BuildRequires:	rocm-runtime-devel
 %endif
 Requires:	opencl-filesystem
+# Neither of the bundled dependencies have upstream releases
+Provides:	bundled(aiebu)
+Provides:	bundled(aie-rt)
 
 %description
 XRT supports both PCIe based accelerator cards and MPSoC based embedded

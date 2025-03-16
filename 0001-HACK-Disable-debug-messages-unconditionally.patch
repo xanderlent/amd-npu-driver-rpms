@@ -1,0 +1,32 @@
+From 3013610b849f04c738d9cd4d683f12e3f189f354 Mon Sep 17 00:00:00 2001
+From: "Alexander F. Lent" <lx@xanderlent.com>
+Date: Sun, 16 Mar 2025 15:42:54 -0400
+Subject: [PATCH] HACK: Disable debug messages unconditionally
+
+Since Fedora likes to build RelWithDebInfo, this check errors out.
+
+Signed-off-by: Alexander F. Lent <lx@xanderlent.com>
+---
+ src/shim/CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/shim/CMakeLists.txt b/src/shim/CMakeLists.txt
+index a1f3fce..c2a4430 100644
+--- a/src/shim/CMakeLists.txt
++++ b/src/shim/CMakeLists.txt
+@@ -28,9 +28,9 @@ target_compile_definitions(${XDNA_TARGET} PRIVATE
+   XRT_BUILD
+   )
+ 
+-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+-  add_definitions(-DXDNA_SHIM_DEBUG)
+-endif()
++#if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
++#  add_definitions(-DXDNA_SHIM_DEBUG)
++#endif()
+ 
+ if(${UMQ_HELLO_TEST})
+   add_definitions(-DUMQ_HELLO_TEST)
+-- 
+2.48.1
+
