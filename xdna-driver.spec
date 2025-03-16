@@ -89,9 +89,9 @@ popd
 %{_prefix}/xrt/amdxdna/io_page_fault_flags
 %{_prefix}/xrt/amdxdna/npu_perf_analyze.sh
 %{_prefix}/xrt/amdxdna/npu_perf_trace.sh
-%{_prefix}/xrt/lib64/libxrt_driver_xdna.so
-%{_prefix}/xrt/lib64/libxrt_driver_xdna.so.2
-%{_prefix}/xrt/lib64/libxrt_driver_xdna.so.2.19.0
+%{_prefix}/xrt/lib/libxrt_driver_xdna.so
+%{_prefix}/xrt/lib/libxrt_driver_xdna.so.2
+%{_prefix}/xrt/lib/libxrt_driver_xdna.so.2.19.0
 
 %changelog
 %autochangelog
