@@ -24,10 +24,24 @@ Patch:		0001-HACK-Disable-debug-messages-unconditionally.patch
 # TODO: XRT can also handle aarch64 and ppc64le, can XDNA do too?
 ExclusiveArch:	x86_64
 
-# TODO: move to packageconfig(lib) format?
+# These BRs are the same as XRT, since we build this module using that sources
 BuildRequires:	cmake
 BuildRequires:	g++
-# TODO: Get the deps up to date with a clean build environment?
+BuildRequires:	pkgconfig(libdrm)
+# TODO: pkgconfig(OpenCL) brings in OpenCL-ICD-Loader-devel
+# but that would conflict with ROCm's ocl-icd-devel
+#BuildRequires:	pkgconfig(OpenCL)
+BuildRequires:	ocl-icd-devel
+BuildRequires:	boost-devel
+BuildRequires:	pkgconfig(ncurses)
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(RapidJSON)
+BuildRequires:	pkgconfig(protobuf)
+BuildRequires:	pkgconfig(uuid)
+BuildRequires:	systemtap-sdt-devel
+BuildRequires:	elfio-devel
+# This BR is for the kernel driver
+BuildRequires:	kernel-devel-matched
 # TODO: The upstream code makes a package that depends on XRT-npu, maybe do that?
 # The build process bundles XRT at a specific version
 Provides:	bundled(XRT) = %{XRT_version}
