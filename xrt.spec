@@ -54,6 +54,34 @@ XRT supports both PCIe based accelerator cards and MPSoC based embedded
 architecture provides standardized software interface to Xilinx® FPGA. The key
 user APIs are defined in xrt.h header file.
 
+%package aws
+Summary:	XRT plugin for AWS
+%description aws
+TODO
+%package azure
+Summary:	XRT plugin for Azure
+%description azure
+TODO
+%package container
+Summary:	XRT plugin for Containers
+%description container
+TODO
+# The runtime-devel package corresponds to upstream's -runtime package
+%package runtime-devel
+Summary:	XRT AIE Runtime (development files)
+%description runtime-devel
+TODO
+# The runtime package corresponds to upstream's -Runtime package
+%package runtime
+Summary:	XRT AIE Runtime
+%description runtime
+TODO
+%package xbflash
+Summary:	XRT xbflash utility
+%description xbflash
+TODO
+# The main package corresponds to the upstream -xrt package
+
 %prep
 %autosetup -p1
 %setup -D -T -a 1
@@ -85,24 +113,23 @@ mv aie-rt-%{aiert_rev}/ src/runtime_src/core/common/aiebu/lib/aie-rt/
 %check
 # TODO: get ctest working
 
+%files aws
+%{_prefix}/xrt/lib64/libaws_mpd_plugin.so
+%files azure
+%{_prefix}/xrt/lib64/libazure_mpd_plugin.so
+%files container
+%{_prefix}/xrt/lib64/libcontainer_mpd_plugin.so
+%files runtime-devel
+%{_prefix}/lib/cmake/xaiengine/
+%files runtime
+# TODO: Where did these files go vs the official packages?
+#{_prefix}/aiebu/bin
+#{_prefix}/aiebu/include
+#{_prefix}/aiebu/lib/aie2
+%files xbflash
+%{_prefix}/local/bin/xbflash
 %files
 #TODO: figure out how to get files in reasonable locations
-#TODO: split package into subpackages like upstream does
-#### This will be the -aws subpackage ###
-%{_prefix}/xrt/lib/libaws_mpd_plugin.so
-#### This will be the -azure subpackage ###
-%{_prefix}/xrt/lib/libazure_mpd_plugin.so
-#### This will be the -contianer subpackage ###
-%{_prefix}/xrt/lib/libcontainer_mpd_plugin.so
-#### This will be the -runtime subpackage ####
-%{_prefix}/lib/cmake/xaiengine/
-#### This will be the -Runtime subpackage ####
-%{_prefix}/aiebu/bin
-%{_prefix}/aiebu/include
-%{_prefix}/aiebu/lib/aie2
-#### This will be the -xbflash subpackage ####
-%{_prefix}/local/bin/xbflash
-#### This will be the -xrt subpackage ####
 # OpenCL ICD file goes in the right place
 /etc/OpenCL/vendors/xilinx.icd
 # But the aiebu files do not
