@@ -1,19 +1,19 @@
 Name:		xdna-driver
 Summary:	AMD XDNA Driver for Linux
 URL:		https://github.com/amd/xdna-driver
-%define xdna_version 2.19.0~20250314gitedbd030
-%define xdna_rev edbd0308e677344ec0151ea3a72942487e587914
+%define xdna_version 2.19.0~20250411git8a7084d
+%define xdna_rev 8a7084ddc8a400314587945adfcda08fbc9bd083
 Version:	%{xdna_version}
 Release:	1%{?dist}
 License:	TODO
 
 %define XRT_url https://github.com/Xilinx/XRT
-%define XRT_rev 79f5f5adad712270371bbb5c6eee78473cba038e
-%define XRT_version 202510.2.19.0~20250227git79f5f5a
-%define XRT_aiebu_url https://github.com/Xilinx/aiebu
-%define XRT_aiebu_rev 89f332a2d7f33c08a471fe560d87859edd7e4576
+%define XRT_rev a11a3ef18dcac64f4b5963cdf8d6e57641f166f2
+%define XRT_version 202510.2.19.0~20250409gita11a3ef
 %define XRT_aiert_url https://github.com/Xilinx/aie-rt
-%define XRT_aiert_rev 3640b761ded1619ac06478a0985bb4a2fb2b3e26
+%define XRT_aiert_rev 9f57b82c41c92effae468912c45ced031f56b54a
+%define XRT_aiebu_url https://github.com/Xilinx/aiebu
+%define XRT_aiebu_rev 89c754fe41edb615abbb3072eca42ca14c7f4e5f
 Source:		%{url}/archive/%{xdna_rev}.tar.gz
 Source:		%{XRT_url}/archive/%{XRT_rev}.tar.gz
 Source:		%{XRT_aiebu_url}/archive/%{XRT_aiebu_rev}.tar.gz
@@ -40,6 +40,7 @@ BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	systemtap-sdt-devel
 BuildRequires:	elfio-devel
+BuildRequires:	guidelines-support-library-devel
 # This BR is for the kernel driver
 BuildRequires:	kernel-devel-matched
 # TODO: The upstream code makes a package that depends on XRT-npu, maybe do that?
