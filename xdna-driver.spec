@@ -4,7 +4,7 @@ URL:		https://github.com/amd/xdna-driver
 %define xdna_version 2.19.0~20250411git8a7084d
 %define xdna_rev 8a7084ddc8a400314587945adfcda08fbc9bd083
 Version:	%{xdna_version}
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	TODO
 
 %define XRT_url https://github.com/Xilinx/XRT
@@ -19,7 +19,9 @@ Source:		%{XRT_url}/archive/%{XRT_rev}.tar.gz
 Source:		%{XRT_aiebu_url}/archive/%{XRT_aiebu_rev}.tar.gz
 Source:		%{XRT_aiert_url}/archive/%{XRT_aiert_rev}.tar.gz
 Patch:		0001-HACK-Disable-debug-messages-unconditionally.patch
-# TODO: Patch out the build of the .ko and dkms bits to reduce dependencies
+# Proposed upstream patch to disable building the kmod
+# https://github.com/amd/xdna-driver/pull/472
+Patch:		0001-Add-SKIP_KMOD-nokmod-build-option-fixes-342.patch
 
 # TODO: XRT can also handle aarch64 and ppc64le, can XDNA do too?
 ExclusiveArch:	x86_64
@@ -41,9 +43,14 @@ BuildRequires:	pkgconfig(uuid)
 BuildRequires:	systemtap-sdt-devel
 BuildRequires:	elfio-devel
 BuildRequires:	guidelines-support-library-devel
-# This BR is for the kernel driver
-BuildRequires:	kernel-devel-matched
+BuildRequires:	pkgconfig(libelf)
 # TODO: The upstream code makes a package that depends on XRT-npu, maybe do that?
+# We lack these requirements so far
+#   - nothing provides xrt-base >= 2.19 needed by xrt_plugin-amdxdna-2.19.0-1.x86_64 from @commandline
+#  - nothing provides xrt-base < 2.20 needed by xrt_plugin-amdxdna-2.19.0-1.x86_64 from @commandline
+# We already have these because the RPM process is smart about dynmaic libraries
+#  - nothing provides libxrt_core.so.2()(64bit) needed by xrt_plugin-amdxdna-2.19.0-1.x86_64 from @commandline
+#  - nothing provides libxrt_coreutil.so.2()(64bit) needed by xrt_plugin-amdxdna-2.19.0-1.x86_64 from @commandline
 # The build process bundles XRT at a specific version
 Provides:	bundled(XRT) = %{XRT_version}
 # Neither of XRT's bundled dependencies have upstream releases
@@ -73,7 +80,8 @@ mv aie-rt-%{XRT_aiert_rev}/ xrt/src/runtime_src/core/common/aiebu/lib/aie-rt/
 # Note that the packaging step (including downloading some binaries) and the example builds happen separately from the above
 %cmake \
 	-DXRT_INSTALL_PREFIX=%{_prefix} \
-	-DUMQ_HELLO_TEST=0
+	-DUMQ_HELLO_TEST=0 \
+	-DSKIP_KMOD=ON
 %cmake_build
 
 
@@ -88,10 +96,7 @@ popd
 pushd %{buildroot}
 # delete various misc bits that shouldn't be packaged
 rm -r bins
-# delete the kernel module bits
-rm usr/xrt/amdxdna/amdxdna.tar.gz
-rm usr/xrt/amdxdna/dkms.conf
-rm usr/xrt/amdxdna/dkms_driver.sh
+# delete the extraneous version.json file
 rm usr/xrt/amdxdna/version.json
 popd
 # Handle copying the validation binaries to the right place
