@@ -1,15 +1,15 @@
 Name:		xdna-driver
 Summary:	AMD XDNA Driver for Linux
 URL:		https://github.com/amd/xdna-driver
-%define xdna_version 2.19.0~20250411git8a7084d
-%define xdna_rev 8a7084ddc8a400314587945adfcda08fbc9bd083
+%define xdna_version 2.19.0~20250423git75bc2dc
+%define xdna_rev 75bc2dc16dc9725d13eee68a7f410865c28ebc9b
 Version:	%{xdna_version}
-Release:	3%{?dist}
+Release:	1%{?dist}
 License:	TODO
 
 %define XRT_url https://github.com/Xilinx/XRT
-%define XRT_rev a11a3ef18dcac64f4b5963cdf8d6e57641f166f2
-%define XRT_version 202510.2.19.0~20250409gita11a3ef
+%define XRT_rev d5835aaa7fcdbcb749f4d837d9a0a605c1a4d312
+%define XRT_version 202510.2.19.0~20250415gitd5835aa
 %define XRT_aiert_url https://github.com/Xilinx/aie-rt
 %define XRT_aiert_rev 9f57b82c41c92effae468912c45ced031f56b54a
 %define XRT_aiebu_url https://github.com/Xilinx/aiebu
@@ -19,9 +19,6 @@ Source:		%{XRT_url}/archive/%{XRT_rev}.tar.gz
 Source:		%{XRT_aiebu_url}/archive/%{XRT_aiebu_rev}.tar.gz
 Source:		%{XRT_aiert_url}/archive/%{XRT_aiert_rev}.tar.gz
 Patch:		0001-HACK-Disable-debug-messages-unconditionally.patch
-# Proposed upstream patch to disable building the kmod
-# https://github.com/amd/xdna-driver/pull/472
-Patch:		0001-Add-SKIP_KMOD-nokmod-build-option-fixes-342.patch
 
 # TODO: XRT can also handle aarch64 and ppc64le, can XDNA do too?
 ExclusiveArch:	x86_64
@@ -33,6 +30,7 @@ BuildRequires:	pkgconfig(libdrm)
 # TODO: pkgconfig(OpenCL) brings in OpenCL-ICD-Loader-devel
 # but that would conflict with ROCm's ocl-icd-devel
 #BuildRequires:	pkgconfig(OpenCL)
+#BuildRequires:	OpenCL-ICD-Loader-devel
 BuildRequires:	ocl-icd-devel
 BuildRequires:	boost-devel
 BuildRequires:	pkgconfig(ncurses)
