@@ -4,7 +4,7 @@ Summary:	Xilinx Runtime for AIE and FPGA based platforms
 URL:		https://github.com/Xilinx/XRT
 %define xrt_rev d5835aaa7fcdbcb749f4d837d9a0a605c1a4d312
 Version:	202510.2.19.0~20250415gitd5835aa
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	TODO
 
 %define aiebu_url https://github.com/Xilinx/aiebu
@@ -43,6 +43,7 @@ BuildRequires:	systemtap-sdt-devel
 BuildRequires:	elfio-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	systemd-devel
+BuildRequires:	git-core
 # aiebu-asm needs static libs
 BuildRequires:	glibc-static
 BuildRequires:	libstdc++-static

@@ -4,7 +4,7 @@ URL:		https://github.com/amd/xdna-driver
 %define xdna_version 2.19.0~20250423git75bc2dc
 %define xdna_rev 75bc2dc16dc9725d13eee68a7f410865c28ebc9b
 Version:	%{xdna_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	TODO
 
 %define XRT_url https://github.com/Xilinx/XRT
@@ -42,6 +42,7 @@ BuildRequires:	systemtap-sdt-devel
 BuildRequires:	elfio-devel
 BuildRequires:	guidelines-support-library-devel
 BuildRequires:	pkgconfig(libelf)
+BuildRequires:	git-core
 # TODO: The upstream code makes a package that depends on XRT-npu, maybe do that?
 # We lack these requirements so far
 #   - nothing provides xrt-base >= 2.19 needed by xrt_plugin-amdxdna-2.19.0-1.x86_64 from @commandline
