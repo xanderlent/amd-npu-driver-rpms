@@ -1,0 +1,25 @@
+From 8e58b859dab9cf7e5506d0e886dedf04232b1703 Mon Sep 17 00:00:00 2001
+From: "Alexander F. Lent" <lx@xanderlent.com>
+Date: Thu, 24 Apr 2025 02:14:52 -0400
+Subject: [PATCH 2/2] GCC 15 fixup: utils.h needs cstdint header
+
+Signed-off-by: Alexander F. Lent <lx@xanderlent.com>
+---
+ src/runtime_src/core/common/utils.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/runtime_src/core/common/utils.h b/src/runtime_src/core/common/utils.h
+index 8639ffa67..452d367e4 100644
+--- a/src/runtime_src/core/common/utils.h
++++ b/src/runtime_src/core/common/utils.h
+@@ -21,6 +21,7 @@
+ #include "config.h"
+ #include "scope_guard.h"
+ 
++#include <cstdint>
+ #include <string>
+ #include <sstream>
+ #include <functional>
+-- 
+2.49.0
+
